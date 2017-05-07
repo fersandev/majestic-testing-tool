@@ -4,20 +4,25 @@ Majestic Testing Tool (MTT) is a awesome library that helps develop software mor
 ## Instalation
 - Add the dependency to composer.json file 
 {
-    "name": "vendor/majestic-testing-tool",
-    "description": "Majestic Testing Tool Description",
-    "type": "library",
     "require": {
-        "Majestic-Media-Dev/majestic-testing-tool": "1"
+        "fersandev/majestic-testing-tool": "dev-master"
     },
-    "authors": [
+    "repositories": [
         {
-            "name": "Fernando Sanchez",
-            "email": "feraiur@gmail.com"
+          "type": "package",
+          "package": {
+            "name": "fersandev/majestic-testing-tool",
+            "version": "dev-master",
+            "source": {
+              "url": "https://github.com/fersandev/majestic-testing-tool.git",
+              "type": "git",
+              "reference": "master"
+             }
+            }
         }
-    ],
-    "minimum-stability": "alpha"
+    ]    
 }
+
 - Install dependencies
 composer install
 
