@@ -3,9 +3,8 @@
 	This class has the responsability of to verify if the json monitor file persistence exist
 */
 
-require_once('StorageVerificator.php'); 
 
-class UnitMonitorStorageVerificator extends StorageVerificator {
+class UnitMonitorStorageVerificator {
 	protected $persistenceFileName = 'persistence/monitors.json';
 
 	/*

@@ -3,7 +3,7 @@
 	This class has the responsability of getting the unit monitors registered
 */
 
-require_once('entities/UnitMonitor.php'); 
+require_once('UnitMonitor.php'); 
 require_once('UnitMonitorStorageVerificator.php'); 
 
 class UnitMonitorVerificator extends UnitMonitorStorageVerificator {

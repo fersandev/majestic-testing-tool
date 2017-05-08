@@ -6,6 +6,8 @@ Del modulo de monitoreo:
 verifica en monitoring_code.php pues en el codigo para JS estas colocando directo http, y no se sabe si es http o https, busca la manera  (VERIFICAR LUEGO SI EL HTTP FUNCIONA EN UN CONTEXTO CON HTTPS)
 
 refactoriza
+crea una clase de gestión del json
+
  
 
 
