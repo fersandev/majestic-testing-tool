@@ -34,3 +34,8 @@ The dashboard for monitors and unit testing is accessed by: [HOST]/vendor/fersan
 
 ### For monitoring module
 In the dashboard create a new unit monitor, this process throws a monitoring code for php or javascript that you need to include in your code functionalities that you want to monitor.
+
+## Use in Laravel
+If you are in Laravel framework please fallow the next steps:
+
+- Change the package directory from [HOST]/vendor/fersandev/majestic-testing-tool/ to [HOST]public/vendor/fersandev/majestic-testing-tool/ 
