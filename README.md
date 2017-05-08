@@ -28,6 +28,9 @@ Majestic Testing Tool (MTT) is a awesome library that helps develop software mor
 
 
 ## Use
-- The dashboard for monitors and unit testing is accessed by: [HOST]/vendor/fersandev/majestic-testing-tool/ 
+The dashboard for monitors and unit testing is accessed by: [HOST]/vendor/fersandev/majestic-testing-tool/ 
 
-ex: http://testing-page-mtt.local.host/vendor/fersandev/majestic-testing-tool/
+>  ex: http://testing-page-mtt.local.host/vendor/fersandev/majestic-testing-tool/
+
+### For monitoring module
+In the dashboard create a new unit monitor, this process throws a monitoring code for php or javascript that you need to include in your code functionalities that you want to monitor.

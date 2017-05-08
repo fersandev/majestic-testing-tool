@@ -11,5 +11,3 @@ verifica en monitoring_code.php pues en el codigo para JS estas colocando direct
 que cuando se guarden los valores, se parsee el tipo dependiendo del asserType
 
 crea una forma de instalación (composer y github)     (EN PROGRESO)
-
-en monitring_code.php verifica que la importación del js no se haga mas de una vez en caso de que en el mismo fichero hayan mas de un monitor.

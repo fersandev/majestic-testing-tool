@@ -21,13 +21,9 @@ if($unitMonitor['status'] == 'ok') {
 	if($unitMonitorInfo['implementingType'] == 'php') {
 		echo('<div><p>Monitoring PHP code to be inyected in functionality that require to be monitored</p>');
 		echo('
-			/*Params<br>
-			*	resultToMonitor: the functionality result that you wish to monitor<br>
-			* 	keyword: not touch this parameter
-			*	pathFile: indicate the absolute path for the file, include the filename and line where you will add the function<br>
-			*/<br>
-			require_once(dirname(__FILE__) . \'/mtt/mttphp.php\'); <br>
-			monitorDev(\'RESULT_TO_MONITOR\',\''.$unitMonitorInfo['keyword'].'\',$_SERVER[\'REQUEST_URI\']);
+$resultToTest = \'RESULT TO CHECK\';
+$curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => $_SERVER[\'SERVER_NAME\']."/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&keyword=".\''.urlencode($unitMonitorInfo['keyword']).'\'."&pathFile=".urlencode($_SERVER[\'REQUEST_URI\'])."&resultToTest=".urlencode($resultToTest),
+  CURLOPT_RETURNTRANSFER => true,CURLOPT_ENCODING => "",CURLOPT_MAXREDIRS => 10,CURLOPT_TIMEOUT => 30,CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,CURLOPT_CUSTOMREQUEST => "GET",CURLOPT_HTTPHEADER => array("cache-control: no-cache"),));$response = curl_exec($curl);curl_close($curl);
 			');
 		echo('</div>');		
 	}
@@ -36,22 +32,11 @@ if($unitMonitor['status'] == 'ok') {
 	if($unitMonitorInfo['implementingType'] == 'js') {
 		echo('<div><p>Monitoring JavaScript code to be inyected in functionality that require to be monitored</p>');
 		echo('
-			/*<br>
-				Place this just before the body closure tag<br>
-			*/<br>
-			<xmp><script src="http://<?php echo $_SERVER[\'HTTP_HOST\'] ?>/mtt/mttphp.js"></script></xmp><br>
-
-
-			/*
-				Place this into script tags
-			*/<br>
-			/*Params<br>
-			*	resultToMonitor: the functionality result that you wish to monitor<br>
-			* 	keyword: not touch this parameter
-			*	pathFile: indicate the absolute path for the file, include the filename and line where you will add the function<br>
-			*/<br>
 			<xmp>
-			monitorDev(\'RESULT_TO_MONITOR\',\''.$unitMonitorInfo['keyword'].'\',<?= $_SERVER[\'REQUEST_URI\'] ?>);
+<script>
+		var resultToTest = "12";
+		var xhttp = new XMLHttpRequest();xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {var response = this.responseText;}};xhttp.open("GET", "http://<?= $_SERVER[\'SERVER_NAME\'] ?>/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&resultToTest="+resultToTest+"&keyword=<?= \''.urlencode($unitMonitorInfo['keyword']).'\' ?>&pathFile=<?= urlencode($_SERVER[\'REQUEST_URI\']) ?>", true);xhttp.send();
+</script>
 			</xmp>
 			');
 		echo('</div>');		
