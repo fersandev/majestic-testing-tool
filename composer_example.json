@@ -1,0 +1,19 @@
+{
+    "require": {
+        "fersandev/majestic-testing-tool": "dev-master"
+    },
+    "repositories": [
+        {
+          "type": "package",
+          "package": {
+            "name": "fersandev/majestic-testing-tool",
+            "version": "dev-master",
+            "source": {
+              "url": "https://github.com/fersandev/majestic-testing-tool.git",
+              "type": "git",
+              "reference": "master"
+             }
+            }
+        }
+    ]    
+}
