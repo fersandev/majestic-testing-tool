@@ -34,7 +34,7 @@ $curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => $_SERVER[\'SER
 		echo('
 			<xmp>
 <script>
-		var resultToTest = "12";
+		var resultToTest = "RESULT TO CHECK";
 		var xhttp = new XMLHttpRequest();xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {var response = this.responseText;}};xhttp.open("GET", "http://<?= $_SERVER[\'SERVER_NAME\'] ?>/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&resultToTest="+resultToTest+"&keyword=<?= \''.urlencode($unitMonitorInfo['keyword']).'\' ?>&pathFile=<?= urlencode($_SERVER[\'REQUEST_URI\']) ?>", true);xhttp.send();
 </script>
 			</xmp>
