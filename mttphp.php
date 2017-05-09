@@ -11,10 +11,13 @@ function monitorDev($resultToTest, $keyword, $pathFile) {
 
 
 if(isset($_GET['flag']) and !empty($_GET['flag'])) {
-	$resultToTest = $_GET['resultToTest'];
-	$keyword = $_GET['keyword'];
-	$pathFile = $_GET['pathFile'];
-	monitorDev($resultToTest, $keyword, $pathFile);
+	if(isset($_GET['json']) and !empty($_GET['json'])) {
+		$jsonWithParamsToEvaluate = json_decode($_GET['json'], true);
+		$resultToTest = $jsonWithParamsToEvaluate['resultToTest'];
+		$keyword = $jsonWithParamsToEvaluate['keyword'];
+		$pathFile = $jsonWithParamsToEvaluate['pathFile'];
+		monitorDev($resultToTest, $keyword, $pathFile);
+	}
 }
 
 ?>

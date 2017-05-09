@@ -8,7 +8,6 @@ verifica en monitoring_code.php pues en el codigo para JS estas colocando direct
 refactoriza
 crea una clase de gestión del json, seria una interfaz de storage, y a travez de esta interfaz accedemos a las implementaciones, la primera es con json   (EN PROGRESO)
 
- 
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------

@@ -13,12 +13,23 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 	public function saveUnitMonitor($unitMonitor) {
 		if($this->verifyPersistenceExistence()) {
 			$str = file_get_contents($this->persistenceFileName);
+
+			// verify that the expected value does not contain spaces
+			$expectValue = trim($unitMonitor->expectValue);
+			if($unitMonitor->assertType == 'inList') {
+				$expectValueArray = explode(',', $expectValue);
+				foreach ($expectValueArray as $key => $value) {
+					$expectValueArrayNew[] = trim($value);
+				}
+				$expectValue = implode(",", $expectValueArrayNew);
+			}
+
 			if(empty($str)) {
 				$newList[0] = array(
 					'_id'=>1,
 					'keyword'=>$unitMonitor->keyword,
 					'assertType'=>$unitMonitor->assertType,
-					'expectValue'=>$unitMonitor->expectValue,
+					'expectValue'=>$expectValue,
 					'description'=>$unitMonitor->description,
 					'status'=>'red',
 					'domainProject'=>$_SERVER['SERVER_NAME'],
@@ -42,7 +53,7 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 						'_id'=>$newId,
 						'keyword'=>$unitMonitor->keyword,
 						'assertType'=>$unitMonitor->assertType,
-						'expectValue'=>$unitMonitor->expectValue,
+						'expectValue'=>$expectValue,
 						'description'=>$unitMonitor->description,
 						'status'=>'red',
 						'domainProject'=>$_SERVER['SERVER_NAME'],

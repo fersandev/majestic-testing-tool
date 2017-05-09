@@ -14,6 +14,7 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 		Return true if the logic is correct, false in otherwise
 	*/
 	public function checkIfResultArrivedIsTheExpected($unitMonitor, $resultToTest) {
+
 		$this->mUnitMonitor = $unitMonitor;
 		$this->mResultToTest = $resultToTest;
 
@@ -27,7 +28,16 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 	private function isValidAccordingItSpecification() {
 		switch ($this->mUnitMonitor->assertType) {
 			case 'equal':
-					if($this->mUnitMonitor->expectValue == (string)$this->mResultToTest) {
+					if(is_bool($this->mResultToTest)) {
+						if($this->mResultToTest)
+							$resultToTest = 'true';
+						else
+							$resultToTest = 'false';
+					}else {
+						$resultToTest = (string)$this->mResultToTest;
+					}
+
+					if($this->mUnitMonitor->expectValue == $resultToTest) {
 						return true;
 					}else {
 						return false;
@@ -59,7 +69,16 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 				break;
 
 			case 'inequality':
-					if($this->mUnitMonitor->expectValue != (string)$this->mResultToTest) {
+					if(is_bool($this->mResultToTest)) {
+						if($this->mResultToTest)
+							$resultToTest = 'true';
+						else
+							$resultToTest = 'false';
+					}else {
+						$resultToTest = (string)$this->mResultToTest;
+					}
+
+					if($this->mUnitMonitor->expectValue != $resultToTest) {
 						return true;
 					}else {
 						return false;
@@ -67,8 +86,17 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 				break;
 
 			case 'inList':
+					if(is_bool($this->mResultToTest)) {
+						if($this->mResultToTest)
+							$resultToTest = 'true';
+						else
+							$resultToTest = 'false';
+					}else {
+						$resultToTest = (string)$this->mResultToTest;
+					}
+
 					$expectValueArray = explode(',', $this->mUnitMonitor->expectValue);
-					if (in_array((string)$this->mResultToTest, $expectValueArray)) {
+					if (in_array($resultToTest, $expectValueArray)) {
 					    return true;
 					}else {
 						return false;

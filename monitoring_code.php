@@ -22,10 +22,9 @@ if($unitMonitor['status'] == 'ok') {
 		echo('<div><p>Monitoring PHP code to be inyected in functionality that require to be monitored</p>');
 		echo('
 // Unit Monitor<br>
-$resultToTest = (string)\'RESULT TO CHECK\';
+$resultToTest = \'RESULT TO CHECK\'; 
 <br>
-$curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => $_SERVER[\'SERVER_NAME\']."/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&keyword=".\''.urlencode($unitMonitorInfo['keyword']).'\'."&pathFile=".urlencode($_SERVER[\'REQUEST_URI\'])."&resultToTest=".urlencode($resultToTest),
-  CURLOPT_RETURNTRANSFER => true,CURLOPT_ENCODING => "",CURLOPT_MAXREDIRS => 10,CURLOPT_TIMEOUT => 30,CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,CURLOPT_CUSTOMREQUEST => "GET",CURLOPT_HTTPHEADER => array("cache-control: no-cache"),));$response = curl_exec($curl);curl_close($curl);
+$curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => $_SERVER[\'SERVER_NAME\']."/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&json=".json_encode(array(\'keyword\'=>\''.$unitMonitorInfo['keyword'].'\',\'pathFile\'=>$_SERVER[\'REQUEST_URI\'],\'resultToTest\'=>$resultToTest)), CURLOPT_RETURNTRANSFER => true,CURLOPT_ENCODING => "",CURLOPT_MAXREDIRS => 10,CURLOPT_TIMEOUT => 30,CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,CURLOPT_CUSTOMREQUEST => "GET",CURLOPT_HTTPHEADER => array("cache-control: no-cache"),));$response = curl_exec($curl);curl_close($curl);
 			');
 		echo('</div>');		
 	}
@@ -37,8 +36,8 @@ $curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => $_SERVER[\'SER
 			<xmp>
 <script>
 // Unit Monitor
-		var resultToTest = String("RESULT TO CHECK");
-		var xhttp = new XMLHttpRequest();xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {var response = this.responseText;}};xhttp.open("GET", "http://<?= $_SERVER[\'SERVER_NAME\'] ?>/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&resultToTest="+resultToTest+"&keyword=<?= \''.urlencode($unitMonitorInfo['keyword']).'\' ?>&pathFile=<?= urlencode($_SERVER[\'REQUEST_URI\']) ?>", true);xhttp.send();
+			var resultToTest = "RESULT TO CHECK";
+		var xhttp = new XMLHttpRequest();xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {var response = this.responseText;}};var requestUri="<?= $_SERVER[\'REQUEST_URI\'] ?>";var serverName="<?= $_SERVER[\'SERVER_NAME\'] ?>";;xhttp.open("GET", "http://"+serverName+"/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&json={\"keyword\":\"'.$unitMonitorInfo['keyword'].'\",\"pathFile\":\""+requestUri+"\",\"resultToTest\":\""+resultToTest+"\"}");xhttp.send();
 </script>
 			</xmp>
 			');
