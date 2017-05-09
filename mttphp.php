@@ -6,6 +6,7 @@
 require_once('/usecases/verify_expected.php'); 
 
 function monitorDev($resultToTest, $keyword, $pathFile) {
+
 	verifyExpected($resultToTest, $keyword, $pathFile);
 }
 

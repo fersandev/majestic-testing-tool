@@ -1,14 +1,37 @@
-Faltantes:
+FALTANTES:
 
 Del modulo de monitoreo: 
 
 
 verifica en monitoring_code.php pues en el codigo para JS estas colocando directo http, y no se sabe si es http o https, busca la manera  (VERIFICAR LUEGO SI EL HTTP FUNCIONA EN UN CONTEXTO CON HTTPS)
 
-refactoriza
+
 crea una clase de gestión del json, seria una interfaz de storage, y a travez de esta interfaz accedemos a las implementaciones, la primera es con json   (EN PROGRESO)
 
 
+Hacer que en laravel se cambie la ruta del vendor automaticamente:  en el service provider del paquete, colocas algo como:
+$this->publishes([__DIR__ . '/views' => resource_path('views/vendor/demo-todo')]);
+donde  [__DIR__ . '/views'  es lo que quieres copiar
+y  resource_path('views/vendor/demo-todo')  la ruta destino
+en este ejemplo, copia la carpeta views que está dentro del módulo a la carpeta views del directorio resources de Laravel
+lo cambias por public_path y copias a la carpeta public de Laravel
+y ahí pones un script que llame a tu módulo en vendor, o algo por el estilo
+
+
+Estilo al Dashboard
+
+
+el caso de Laravel el dashboard del módulo pudiera estaren su propia ruta
+sitio.local/mtt por ejemplo
+
+
+un buscador de monitors
+
+
+habilidad de modificar una monitor existente
+
+
+share con firebase
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 

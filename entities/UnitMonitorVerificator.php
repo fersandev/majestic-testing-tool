@@ -28,16 +28,7 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 	private function isValidAccordingItSpecification() {
 		switch ($this->mUnitMonitor->assertType) {
 			case 'equal':
-					if(is_bool($this->mResultToTest)) {
-						if($this->mResultToTest)
-							$resultToTest = 'true';
-						else
-							$resultToTest = 'false';
-					}else {
-						$resultToTest = (string)$this->mResultToTest;
-					}
-
-					if($this->mUnitMonitor->expectValue == $resultToTest) {
+					if($this->mUnitMonitor->expectValue == $this->mResultToTest) {
 						return true;
 					}else {
 						return false;
@@ -45,40 +36,23 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 				break;
 
 			case 'greaterThan':
-					if(is_numeric($this->mResultToTest)) {
-						if((int)$this->mResultToTest > (int)$this->mUnitMonitor->expectValue) {
-							return true;
-						}else {
-							return false;
-						}
+					if($this->mResultToTest > $this->mUnitMonitor->expectValue) {
+						return true;
 					}else {
 						return false;
 					}
 				break;
 
 			case 'lessThan':
-					if(is_numeric($this->mResultToTest)) {
-						if((int)$this->mResultToTest < (int)$this->mUnitMonitor->expectValue) {
-							return true;
-						}else {
-							return false;
-						}
+					if($this->mResultToTest < $this->mUnitMonitor->expectValue) {
+						return true;
 					}else {
 						return false;
 					}
 				break;
 
 			case 'inequality':
-					if(is_bool($this->mResultToTest)) {
-						if($this->mResultToTest)
-							$resultToTest = 'true';
-						else
-							$resultToTest = 'false';
-					}else {
-						$resultToTest = (string)$this->mResultToTest;
-					}
-
-					if($this->mUnitMonitor->expectValue != $resultToTest) {
+					if($this->mUnitMonitor->expectValue != $this->mResultToTest) {
 						return true;
 					}else {
 						return false;
@@ -86,20 +60,43 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 				break;
 
 			case 'inList':
-					if(is_bool($this->mResultToTest)) {
-						if($this->mResultToTest)
-							$resultToTest = 'true';
-						else
-							$resultToTest = 'false';
-					}else {
-						$resultToTest = (string)$this->mResultToTest;
-					}
-
 					$expectValueArray = explode(',', $this->mUnitMonitor->expectValue);
-					if (in_array($resultToTest, $expectValueArray)) {
+					if (in_array($this->mResultToTest, $expectValueArray)) {
 					    return true;
 					}else {
 						return false;
+					}
+				break;
+
+			case 'variableType':
+					switch ($this->mUnitMonitor->typeValueExpected) {
+						case 'boolean':
+								if(is_bool($this->mResultToTest)) {
+									return true;
+								}else {
+									return false;
+								}
+							break;
+
+						case 'numeric':
+								if(is_numeric($this->mResultToTest)) {
+									return true;
+								}else {
+									return false;
+								}
+							break;
+
+						case 'string':
+								if(is_string($this->mResultToTest)) {
+									return true;
+								}else {
+									return false;
+								}
+							break;
+						
+						default:
+								return false;
+							break;
 					}
 				break;
 			

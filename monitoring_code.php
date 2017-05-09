@@ -37,7 +37,7 @@ $curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => $_SERVER[\'SER
 <script>
 // Unit Monitor
 			var resultToTest = "RESULT TO CHECK";
-		var xhttp = new XMLHttpRequest();xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {var response = this.responseText;}};var requestUri="<?= $_SERVER[\'REQUEST_URI\'] ?>";var serverName="<?= $_SERVER[\'SERVER_NAME\'] ?>";;xhttp.open("GET", "http://"+serverName+"/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&json={\"keyword\":\"'.$unitMonitorInfo['keyword'].'\",\"pathFile\":\""+requestUri+"\",\"resultToTest\":\""+resultToTest+"\"}");xhttp.send();
+		var xhttp = new XMLHttpRequest();xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {var response = this.responseText;}};var requestUri="<?= $_SERVER[\'REQUEST_URI\'] ?>";var serverName="<?= $_SERVER[\'SERVER_NAME\'] ?>";xhttp.open("GET", "http://"+serverName+"/vendor/fersandev/majestic-testing-tool/mttphp.php?flag=true&json={\"keyword\":\"'.$unitMonitorInfo['keyword'].'\",\"pathFile\":\""+requestUri+"\",\"resultToTest\":"+resultToTest+"}");xhttp.send();
 </script>
 			</xmp>
 			');

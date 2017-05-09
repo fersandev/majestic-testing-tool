@@ -59,6 +59,7 @@ class UnitMonitorListing extends UnitMonitorStorageVerificator {
 						$unitMonitor->createAt = $value['createAt'];
 						$unitMonitor->pathFile = $value['pathFile'];
 						$unitMonitor->implementingType = $value['implementingType'];
+						$unitMonitor->typeValueExpected = $value['typeValueExpected'];
 						return $unitMonitor;
 						break;
 					}

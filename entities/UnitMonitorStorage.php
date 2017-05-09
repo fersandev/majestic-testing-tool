@@ -15,14 +15,7 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 			$str = file_get_contents($this->persistenceFileName);
 
 			// verify that the expected value does not contain spaces
-			$expectValue = trim($unitMonitor->expectValue);
-			if($unitMonitor->assertType == 'inList') {
-				$expectValueArray = explode(',', $expectValue);
-				foreach ($expectValueArray as $key => $value) {
-					$expectValueArrayNew[] = trim($value);
-				}
-				$expectValue = implode(",", $expectValueArrayNew);
-			}
+			$expectValue = $this->deleteSpacesInExpectedValue($unitMonitor);
 
 			if(empty($str)) {
 				$newList[0] = array(
@@ -36,7 +29,8 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 					'isShared'=>false,
 					'createAt'=>date('Y-m-d H:i:s'),
 					'pathFile'=>'',
-					'implementingType'=>$unitMonitor->implementingType
+					'implementingType'=>$unitMonitor->implementingType, 
+					'typeValueExpected'=>$unitMonitor->typeValueExpected
 					);
 				$newJsonList = json_encode($newList);
 				$newFile = @fopen($this->persistenceFileName, "w");
@@ -60,7 +54,8 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 						'isShared'=>false,
 						'createAt'=>date('Y-m-d H:i:s'),
 						'pathFile'=>'',
-						'implementingType'=>$unitMonitor->implementingType
+						'implementingType'=>$unitMonitor->implementingType, 
+						'typeValueExpected'=>$unitMonitor->typeValueExpected
 						);
 
 					array_push($jsonList,$newMonitorArray);
@@ -105,7 +100,8 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 							'isShared'=>$unitMonitor->isShared,
 							'createAt'=>$unitMonitor->createAt,
 							'pathFile'=>$unitMonitor->pathFile,
-							'implementingType'=>$unitMonitor->implementingType
+							'implementingType'=>$unitMonitor->implementingType, 
+							'typeValueExpected'=>$unitMonitor->typeValueExpected
 							);
 						$jsonUpdate[] = $valueToUpdate;
 					}else {
@@ -123,5 +119,27 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 			return false;
 		}
 	}
+
+
+	/*
+		Delete all the extra spaces in the expected value
+	*/
+	public function deleteSpacesInExpectedValue($unitMonitor) {
+		if($unitMonitor->typeValueExpected != 'boolean') {
+			$expectValue = trim($unitMonitor->expectValue);
+			if($unitMonitor->assertType == 'inList') {
+				$expectValueArray = explode(',', $expectValue);
+				foreach ($expectValueArray as $key => $value) {
+					$expectValueArrayNew[] = trim($value);
+				}
+				$expectValue = implode(",", $expectValueArrayNew);
+			}
+			$expectValueWithoutSpaces = $expectValue;
+
+			return $expectValueWithoutSpaces;			
+		}else {
+			return $unitMonitor->expectValue;
+		}
+	}	
 }
 ?>

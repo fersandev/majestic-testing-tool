@@ -19,7 +19,8 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 				$monitorExpectValue = $_POST['monitorExpectValue'];
 				$monitorDescription = $_POST['monitorDescription'];
 				$monitorImplementingType = $_POST['monitorImplementingType'];
-				$unitModuleCreationResult = addNewUnitMonitor($monitorKeyword, $monitorAssertType, $monitorExpectValue, $monitorDescription, $monitorImplementingType);
+				$monitorTypeValueExpected = $_POST['monitorTypeValueExpected'];
+				$unitModuleCreationResult = addNewUnitMonitor($monitorKeyword, $monitorAssertType, $monitorExpectValue, $monitorDescription, $monitorImplementingType, $monitorTypeValueExpected);
 				$creationMonitorMessage = $unitModuleCreationResult;
 			break;
 
@@ -31,6 +32,12 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 
 		case 'delete_all':
 				$resultDeletion = deleteAllUnitMonitors();
+				$deletionMonitorMessage = $resultDeletion['msg'];
+			break;
+
+		case 'deleteUnitMonitorsSelected':
+				$chainWithSelectedUnitMonitorsIds = $_POST['unitMonitorsIdsToDelete'];
+				$resultDeletion = deleteSelectedUnitMonitors($chainWithSelectedUnitMonitorsIds);
 				$deletionMonitorMessage = $resultDeletion['msg'];
 			break;
 		
@@ -78,15 +85,22 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 			Keyword 
 			<input type="text" name="monitorKeyword" placeholder="Unique keyword for the unit monitor" required> <br>
 			Assert Type 
-			<select name="monitorAssertType" required>
+			<select name="monitorAssertType" required onChange="isVariableType(this.value)">
 				<option value="equal">Equal <small>(the expected value will be compare with the result)</small></option>
 				<option value="greaterThan">Greater than <small>(will be used to campare if result is greater than expected value)</small></option>
 				<option value="lessThan">Less than <small>(will be used to campare if result is less than expected value)</small></option>
 				<option value="inequality">Inequality <small>(the expected value will be compare with the result)</small></option>
 				<option value="inList">In list <small>(will be verify if the result is in a list of values)</small></option>
+				<option value="variableType">Variable Type <small>(will be verify if the result is of variable type</small></option>
 			</select><br>
 			Expect Value <small>(if the assert type choosed is "In list", please separate the values with comma(,))</small> <br>
-			<input type="text" name="monitorExpectValue" placeholder="Indicate the expect value for the functional requirement" required> <br>
+			<input id="monitorExpectValue" type="text" name="monitorExpectValue" placeholder="Indicate the expect value for the functional requirement" required> <br>
+			Type Value
+			<select id="monitorTypeValueExpected" name="monitorTypeValueExpected" required>
+				<option value="boolean">Boolean</option>
+				<option value="string">String</option>
+				<option value="numeric">Numeric</option>
+			</select><br>
 			Description 
 			<input type="text" name="monitorDescription" placeholder="Monitor description" required> <br>
 			Select Implementing Type 
@@ -105,6 +119,13 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 	<section>
 		<div>
 			<a href="?flag=delete_all" onClick="if(!confirm('sure?')) return false;">Delete all unit monitors</a>
+			<br>
+			<br>
+			<form action="index.php" method="post">
+				<input type="hidden" name="flag" value="deleteUnitMonitorsSelected">
+				<input type="hidden" name="unitMonitorsIdsToDelete" id="unitMonitorsIdsToDelete">
+				<input type="submit" value="Delete selected unit monitors">
+			</form>
 		</div>
 		<br>
 
@@ -124,20 +145,33 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 					$deleteOption = '<a onClick="if(!confirm(\'sure?\')) return false;" href="?_id='.$value['_id'].'&flag=delete"><img src="images/delete_icon.png" style="max-height:15px;"></a>';
 					$monitoringCode = '<small><a target="_blank" href="monitoring_code.php?_id='.$value['_id'].'">monitoring code</a></small>';
 					$shareStatusMonitor = '<img src="images/share_icon.png" style="max-height:15px;">';
+					$editOption = '<a href="?_id='.$value['_id'].'&flag=edit"><img src="images/edit_icon.png" style="max-height:15px;"></a>';
 
 					if($value['isShared']) {
 						$isShared = 'yes';
 					}else {
 						$isShared = 'no';
 					}
+
+					if(is_bool($value['expectValue'])) {
+						if($value['expectValue'])
+							$expectedValueInList = 'true';
+						else {
+							$expectedValueInList = 'false';
+						}
+					}else {
+						$expectedValueInList = $value['expectValue'];
+					}
 					
 					echo('
 						<li>
-							'.$statusImg.' '.$value['keyword'].' ('.$value['implementingType'].') '.$shareStatusMonitor.' '.$deleteOption.' '.$monitoringCode.'
+							'.$statusImg.' '.$value['keyword'].' ('.$value['implementingType'].') '.$editOption.' ' .$shareStatusMonitor.' '.$deleteOption.' '.$monitoringCode.' 
+							<input type="checkbox" value="'.$value['_id'].'" onChange="markToDelete(this.value, this.checked)"> 
 							<br>
 							<p><small>
 								Assert type: '.$value['assertType'].'<br>
-								Expect value: '.$value['expectValue'].'<br>
+								Expect value: '.$expectedValueInList.'<br>
+								Value type: '.$value['typeValueExpected'].'<br>
 								Description: '.$value['description'].'<br>
 								Is shared: '.$isShared.'<br>
 								Created at: '.$value['createAt'].'<br>
@@ -169,5 +203,52 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 	</section>
 </div>
 
+
+<script>
+	function isVariableType(assertType) {
+		if(assertType == "variableType") {
+			document.getElementById("monitorExpectValue").value = " -- ";
+			document.getElementById("monitorExpectValue").type = "hidden";
+		}else {
+			if(assertType == "inList") {
+				document.getElementById("monitorExpectValue").value = "";
+				document.getElementById("monitorExpectValue").type = "text";
+				document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="string">String</option>';
+			}else {
+				document.getElementById("monitorExpectValue").value = "";
+				document.getElementById("monitorExpectValue").type = "text";
+				document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="boolean">Boolean</option><option value="string">String</option><option value="numeric">Numeric</option>';
+			}
+		}
+	}
+	
+
+	function markToDelete(idUnitMonitor, isChecked) {
+		if(isChecked) {
+			var unitMonitorsIdsToDeleteContent = document.getElementById("unitMonitorsIdsToDelete").value;
+			if(unitMonitorsIdsToDeleteContent.length > 0) {
+				var arrayWithIds = unitMonitorsIdsToDeleteContent.split("-");
+				arrayWithIds.push(idUnitMonitor);
+				document.getElementById("unitMonitorsIdsToDelete").value = arrayWithIds.join("-");
+			}else {
+				document.getElementById("unitMonitorsIdsToDelete").value = idUnitMonitor;
+			}
+		}else {
+			var unitMonitorsIdsToDeleteContent = document.getElementById("unitMonitorsIdsToDelete").value;
+			var arrayWithIds = unitMonitorsIdsToDeleteContent.split("-");
+			var i;
+			var newContentOfIdsToDelete = "";
+			for (i = 0; i < arrayWithIds.length; i++) {
+				if(arrayWithIds[i] != idUnitMonitor) {
+					newContentOfIdsToDelete += arrayWithIds[i];
+					if(i <= arrayWithIds.length) {
+						newContentOfIdsToDelete += "-";
+					}
+				}
+			}
+			document.getElementById("unitMonitorsIdsToDelete").value = newContentOfIdsToDelete;
+		}
+	}
+</script>
 </body>
 </html>
