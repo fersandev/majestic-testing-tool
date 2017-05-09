@@ -40,6 +40,12 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 				$resultDeletion = deleteSelectedUnitMonitors($chainWithSelectedUnitMonitorsIds);
 				$deletionMonitorMessage = $resultDeletion['msg'];
 			break;
+
+		case 'loadFormEdit':
+				$_id = (int)$_GET['_id'];
+				$resultDeletion = deleteUnitMonitor($_id);
+				$deletionMonitorMessage = $resultDeletion['msg'];
+			break;
 		
 		default:
 			exit('INVALID ACCESS');
@@ -145,7 +151,7 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 					$deleteOption = '<a onClick="if(!confirm(\'sure?\')) return false;" href="?_id='.$value['_id'].'&flag=delete"><img src="images/delete_icon.png" style="max-height:15px;"></a>';
 					$monitoringCode = '<small><a target="_blank" href="monitoring_code.php?_id='.$value['_id'].'">monitoring code</a></small>';
 					$shareStatusMonitor = '<img src="images/share_icon.png" style="max-height:15px;">';
-					$editOption = '<a href="?_id='.$value['_id'].'&flag=edit"><img src="images/edit_icon.png" style="max-height:15px;"></a>';
+					$editOption = '';//'<a href="?_id='.$value['_id'].'&flag=edit"><img src="images/edit_icon.png" style="max-height:15px;"></a>';
 
 					if($value['isShared']) {
 						$isShared = 'yes';

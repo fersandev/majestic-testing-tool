@@ -21,14 +21,14 @@ y ahí pones un script que llame a tu módulo en vendor, o algo por el estilo
 Estilo al Dashboard
 
 
-el caso de Laravel el dashboard del módulo pudiera estaren su propia ruta
+el caso de Laravel el dashboard del módulo pudiera estar en su propia ruta
 sitio.local/mtt por ejemplo
 
 
 un buscador de monitors
 
 
-habilidad de modificar una monitor existente
+habilidad de modificar una monitor existente   (ANALIZAR SI ES FACTIBLE)
 
 
 share con firebase
