@@ -28,7 +28,7 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 	private function isValidAccordingItSpecification() {
 		switch ($this->mUnitMonitor->assertType) {
 			case 'equal':
-					if($this->mUnitMonitor->expectValue == $this->mResultToTest) {
+					if($this->mUnitMonitor->expectValue === $this->mResultToTest) {
 						return true;
 					}else {
 						return false;
@@ -52,7 +52,7 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 				break;
 
 			case 'inequality':
-					if($this->mUnitMonitor->expectValue != $this->mResultToTest) {
+					if($this->mUnitMonitor->expectValue !== $this->mResultToTest) {
 						return true;
 					}else {
 						return false;
