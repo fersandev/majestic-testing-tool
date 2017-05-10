@@ -5,7 +5,7 @@
 
 
 class UnitMonitorStorageVerificator {
-	protected $persistenceFileName = 'persistence/monitors.json';
+	public $persistenceFileName = 'persistence/monitors.json';
 
 	/*
 		true if file exist, false in otherwise

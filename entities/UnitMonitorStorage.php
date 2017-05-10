@@ -111,8 +111,10 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 
 				$updatedJsonList = json_encode($jsonUpdate);
 				$existingFile = @fopen($this->persistenceFileName, "w");
-				fwrite($existingFile, $updatedJsonList);
-				fclose($existingFile);
+				if($existingFile) {
+					fwrite($existingFile, $updatedJsonList);
+					fclose($existingFile);
+				}
 				return true;
 			}
 		}else {
