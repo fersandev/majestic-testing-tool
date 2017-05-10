@@ -221,9 +221,15 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 				document.getElementById("monitorExpectValue").type = "text";
 				document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="string">String</option>';
 			}else {
-				document.getElementById("monitorExpectValue").value = "";
-				document.getElementById("monitorExpectValue").type = "text";
-				document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="boolean">Boolean</option><option value="string">String</option><option value="numeric">Numeric</option>';
+				if(assertType == "greaterThan" || assertType == "lessThan") {
+					document.getElementById("monitorExpectValue").value = "";
+					document.getElementById("monitorExpectValue").type = "text";
+					document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="numeric">Numeric</option>';
+				}else {
+					document.getElementById("monitorExpectValue").value = "";
+					document.getElementById("monitorExpectValue").type = "text";
+					document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="boolean">Boolean</option><option value="string">String</option><option value="numeric">Numeric</option>';
+				}
 			}
 		}
 	}

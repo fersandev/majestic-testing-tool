@@ -33,6 +33,8 @@ habilidad de modificar una monitor existente   (ANALIZAR SI ES FACTIBLE)
 
 share con firebase
 
+en el dashboard valida bien el type assert con el expected value por ejemplo lessTan y el greatThn deben aceptar solo tipo numerico
+
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
 
