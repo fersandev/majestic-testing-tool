@@ -59,22 +59,9 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 <html>
 	<head>
 		<title>Dashboard - Majestic Testing Tool</title>
-		<style type="text/css">
-			.column {
-			  display: inline;
-			  float: left;
-			  padding: 0 2%;
-			  width: 46%;
-			}
-
-			#column-1 {
-			  background: white;
-			}
-
-			#column-2 {
-			  background: white;
-			}
-		</style>
+		<link href="//fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
 <body>
 
