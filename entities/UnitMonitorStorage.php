@@ -47,7 +47,7 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 						'_id'=>$newId,
 						'keyword'=>$unitMonitor->keyword,
 						'assertType'=>$unitMonitor->assertType,
-						'expectValue'=>$expectValue,
+						'expectValue'=>$this->castVariableToIndicated($expectValue,$unitMonitor->typeValueExpected),
 						'description'=>$unitMonitor->description,
 						'status'=>'red',
 						'domainProject'=>$_SERVER['SERVER_NAME'],
@@ -141,5 +141,22 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 			return $unitMonitor->expectValue;
 		}
 	}	
+
+
+	private function castVariableToIndicated($expectValue, $typeValueExpected) {
+		switch ($typeValueExpected) {
+			case 'string':
+					return (string)$expectValue;
+				break;
+			
+			case 'boolean':
+					return (boolean)$expectValue;
+				break;
+
+			case 'numeric':
+					return (float)$expectValue;
+				break;
+		}
+	}
 }
 ?>
