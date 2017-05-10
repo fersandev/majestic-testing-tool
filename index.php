@@ -158,8 +158,8 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 					
 					echo('
 						<li>
-							'.$statusImg.' '.$value['keyword'].' ('.$value['implementingType'].') '.$editOption.' ' .$shareStatusMonitor.' '.$deleteOption.' '.$monitoringCode.' 
-							<input type="checkbox" value="'.$value['_id'].'" onChange="markToDelete(this.value, this.checked)"> 
+							<input type="checkbox" value="'.$value['_id'].'" onChange="markToDelete(this.value, this.checked)"> &nbsp;
+							'.$statusImg.' '.$value['keyword'].' ('.$value['implementingType'].') <br> '.$editOption.' ' .$shareStatusMonitor.' '.$deleteOption.' '.$monitoringCode.' 
 							<br>
 							<p><small>
 								Assert type: '.$value['assertType'].'<br>
