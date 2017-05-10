@@ -75,35 +75,60 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 		<label><strong>Define the requirements to monitor</strong></label>
 		<form action="index.php" method="post">
 			<input type="hidden" name="flag" value="unitModuleCreation">
-			Keyword 
-			<input type="text" name="monitorKeyword" placeholder="Unique keyword for the unit monitor" required> <br>
-			Assert Type 
-			<select name="monitorAssertType" required onChange="isVariableType(this.value)">
-				<option value="equal">Equal <small>(the expected value will be compare with the result)</small></option>
-				<option value="greaterThan">Greater than <small>(will be used to campare if result is greater than expected value)</small></option>
-				<option value="lessThan">Less than <small>(will be used to campare if result is less than expected value)</small></option>
-				<option value="inequality">Inequality <small>(the expected value will be compare with the result)</small></option>
-				<option value="inList">In list <small>(will be verify if the result is in a list of values)</small></option>
-				<option value="variableType">Variable Type <small>(will be verify if the result is of variable type</small></option>
-			</select><br>
-			Expect Value <small>(if the assert type choosed is "In list", please separate the values with comma(,))</small> <br>
-			<input id="monitorExpectValue" type="text" name="monitorExpectValue" placeholder="Indicate the expect value for the functional requirement" required> <br>
-			Type Value
-			<select id="monitorTypeValueExpected" name="monitorTypeValueExpected" required>
-				<option value="boolean">Boolean</option>
-				<option value="string">String</option>
-				<option value="numeric">Numeric</option>
-			</select><br>
-			Description 
-			<input type="text" name="monitorDescription" placeholder="Monitor description" required> <br>
-			Select Implementing Type 
-			<select name="monitorImplementingType" required>
-				<option value="php">PHP</option>
-				<option value="js">JavaScript</option>
-			</select><br>
+
+			<div class="form-row">
+				<div class="form-control left">
+					<label for="monitorKeyword">Keyword</label>
+					<input type="text" id="monitorKeyword" name="monitorKeyword" placeholder="Unique keyword for the unit monitor" required>
+				</div>
+				
+				<div class="form-control right">
+					<label for="monitorAssertType">Assert Type</label>
+					<select id="monitorAssertType" name="monitorAssertType" required onChange="isVariableType(this.value)">
+						<option value="equal">Equal</option>
+						<option value="greaterThan">Greater than <small>(will be used to campare if result is greater than expected value)</small></option>
+						<option value="lessThan">Less than <small>(will be used to campare if result is less than expected value)</small></option>
+						<option value="inequality">Inequality <small>(the expected value will be compare with the result)</small></option>
+						<option value="inList">In list <small>(will be verify if the result is in a list of values)</small></option>
+						<option value="variableType">Variable Type <small>(will be verify if the result is of variable type</small></option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-control left">
+					<label for="monitorExpectValue">Expect Value</label>
+					<input id="monitorExpectValue" type="text" name="monitorExpectValue" placeholder="Indicate the expect value for the functional requirement" required>
+					<small>(if the assert type choosed is "In list", please separate the values with comma(,))</small>
+				</div>
+				
+				<div class="form-control right">
+					<label for="monitorTypeValueExpected">Type Value</label>
+					<select id="monitorTypeValueExpected" name="monitorTypeValueExpected" required>
+						<option value="boolean">Boolean</option>
+						<option value="string">String</option>
+						<option value="numeric">Numeric</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-control left">
+					<label for="monitorDescription">Description</label>
+					<input type="text" id="monitorDescription" name="monitorDescription" placeholder="Monitor description" required>
+				</div>
+
+				<div class="form-control right">
+					<label for="monitorImplementingType">Select Implementing Type</label>
+					<select id="monitorImplementingType" name="monitorImplementingType" required>
+						<option value="php">PHP</option>
+						<option value="js">JavaScript</option>
+					</select>
+				</div>
+			</div>
 			<br>
 			<?php if(isset($creationMonitorMessage) and !empty($creationMonitorMessage)) echo($creationMonitorMessage); ?>
-			<input type="submit" value="Add Unit Monitor"> <br>
+			<input type="submit" value="Add Unit Monitor">
 		</form>
 	</section>
 
