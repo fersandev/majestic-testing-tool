@@ -59,6 +59,8 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 <html>
 	<head>
 		<title>Dashboard - Majestic Testing Tool</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<style type="text/css">
 			.column {
 			  display: inline;
