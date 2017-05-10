@@ -18,7 +18,7 @@ class UnitMonitor {
 	public $typeValueExpected;
 
 	function instantiateUnityMonitor($monitorKeyword, $monitorAssertType, $monitorExpectValue, $monitorDescription, $monitorImplementingType, $monitorTypeValueExpected) {
-		$this->keyword = $monitorKeyword;
+		$this->setKeyword($monitorKeyword);
 		$this->assertType = $monitorAssertType;
 		$this->expectValue = $monitorExpectValue;
 		$this->description = $monitorDescription;
@@ -26,11 +26,20 @@ class UnitMonitor {
 		$this->typeValueExpected = $monitorTypeValueExpected;
 	}
 
+	public function setKeyword($keyword) {
+		$this->keyword = str_replace(' ', '_', $keyword);
+	}
+
 	/*
 		Return true if parse was success or false in otherwise
 	*/
 	function parseExpectedValueToCorrectType() {
-		if(($this->assertType != 'variableType') and ($this->assertType != 'inList')) {
+		if(
+			($this->assertType != 'variableType') and 
+			($this->assertType != 'inList') and 
+			($this->assertType != 'notUndefined') and 
+			($this->assertType != 'notNull')
+			) {
 			if($this->typeValueExpected == 'boolean') {
 				if(($this->expectValue == 'true') or ($this->expectValue == 'false')) {
 					if($this->expectValue == 'true')

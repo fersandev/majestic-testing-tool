@@ -6,7 +6,6 @@
 require_once('/usecases/verify_expected.php'); 
 
 function monitorDev($resultToTest, $keyword, $pathFile) {
-
 	verifyExpected($resultToTest, $keyword, $pathFile);
 }
 
@@ -14,7 +13,11 @@ function monitorDev($resultToTest, $keyword, $pathFile) {
 if(isset($_GET['flag']) and !empty($_GET['flag'])) {
 	if(isset($_GET['json']) and !empty($_GET['json'])) {
 		$jsonWithParamsToEvaluate = json_decode($_GET['json'], true);
-		$resultToTest = $jsonWithParamsToEvaluate['resultToTest'];
+		if(isset($jsonWithParamsToEvaluate['resultToTest'])) {
+			$resultToTest = $jsonWithParamsToEvaluate['resultToTest'];
+		}else {
+			$resultToTest = 'undefined';
+		}
 		$keyword = $jsonWithParamsToEvaluate['keyword'];
 		$pathFile = $jsonWithParamsToEvaluate['pathFile'];
 		monitorDev($resultToTest, $keyword, $pathFile);

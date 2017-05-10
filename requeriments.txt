@@ -18,9 +18,6 @@ lo cambias por public_path y copias a la carpeta public de Laravel
 y ahí pones un script que llame a tu módulo en vendor, o algo por el estilo
 
 
-Estilo al Dashboard
-
-
 el caso de Laravel el dashboard del módulo pudiera estar en su propia ruta
 sitio.local/mtt por ejemplo
 
@@ -36,8 +33,6 @@ share con firebase
 
 acepta tipo object
 
-
-valida tipo undefined y null
 
 
 

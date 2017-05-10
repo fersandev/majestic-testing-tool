@@ -27,6 +27,22 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 
 	private function isValidAccordingItSpecification() {
 		switch ($this->mUnitMonitor->assertType) {
+			case 'notNull':
+					if(!is_null($this->mResultToTest)) {
+						return true;
+					}else {
+						return false;
+					}
+				break;
+
+			case 'notUndefined':
+					if($this->mResultToTest != 'undefined') {
+						return true;
+					}else {
+						return false;
+					}
+				break;
+
 			case 'equal':
 					if($this->mUnitMonitor->expectValue === $this->mResultToTest) {
 						return true;

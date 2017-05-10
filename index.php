@@ -91,6 +91,8 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 						<option value="inequality">Inequality <small>(the expected value will be compare with the result)</small></option>
 						<option value="inList">In list <small>(will be verify if the result is in a list of values)</small></option>
 						<option value="variableType">Variable Type <small>(will be verify if the result is of variable type</small></option>
+						<option value="notNull">Not null <small>(will be verify if the result is not null</small></option>
+						<option value="notUndefined">Not undefined <small>(will be verify if the result is not undefined</small></option>
 					</select>
 				</div>
 			</div>
@@ -121,8 +123,8 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 				<div class="form-control right">
 					<label for="monitorImplementingType">Select Implementing Type</label>
 					<select id="monitorImplementingType" name="monitorImplementingType" required>
-						<option value="php">PHP</option>
 						<option value="js">JavaScript</option>
+						<option value="php">PHP</option>
 					</select>
 				</div>
 			</div>
@@ -212,7 +214,7 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 	<h2>Unit Testing Module</h2>
 	<!-- Unit Test Creation -->
 	<section>
-		Unit Test (in construction)
+		<center>Unit Test (in construction)</center>
 	</section>
 
 	<!-- Unit Test Listing -->
@@ -224,6 +226,13 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 
 <script>
 	function isVariableType(assertType) {
+		// all fields available
+		document.getElementById("monitorExpectValue").value = "";
+		document.getElementById("monitorExpectValue").type = "text";
+		document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="boolean">Boolean</option><option value="string">String</option><option value="numeric">Numeric</option>';
+		document.getElementById("monitorTypeValueExpected").style.visibility = "visible";
+		document.getElementById("monitorImplementingType").style.visibility = "visible";
+
 		if(assertType == "variableType") {
 			document.getElementById("monitorExpectValue").value = " -- ";
 			document.getElementById("monitorExpectValue").type = "hidden";
@@ -238,9 +247,18 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 					document.getElementById("monitorExpectValue").type = "text";
 					document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="numeric">Numeric</option>';
 				}else {
-					document.getElementById("monitorExpectValue").value = "";
-					document.getElementById("monitorExpectValue").type = "text";
-					document.getElementById("monitorTypeValueExpected").innerHTML = '<option value="boolean">Boolean</option><option value="string">String</option><option value="numeric">Numeric</option>';
+					if(assertType == "notNull") {
+						document.getElementById("monitorExpectValue").value = " -- ";
+						document.getElementById("monitorExpectValue").type = "hidden";
+						document.getElementById("monitorTypeValueExpected").style.visibility = "hidden";
+					}else {
+						if(assertType == "notUndefined") {
+							document.getElementById("monitorExpectValue").value = " -- ";
+							document.getElementById("monitorExpectValue").type = "hidden";
+							document.getElementById("monitorTypeValueExpected").style.visibility = "hidden";
+							document.getElementById("monitorImplementingType").style.visibility = "hidden";
+						}
+					}
 				}
 			}
 		}
