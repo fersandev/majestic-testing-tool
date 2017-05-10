@@ -118,6 +118,14 @@ body {
         font-weight: 100;
     }
 
+    .left {
+        float: left;
+    }
+
+    .right {
+        float: right;
+    }
+
     body h1 {
         margin: 65px 0;
         font-size: 2.5em;
@@ -141,13 +149,13 @@ body {
     }
 
             .column section form input[type='text'],
+            .column section form input[type='email'],
+            .column section form input[type='password'],
             .column section form select {
                 display: block;
-            }
-
-            .column section form input[type='text'] {
-                /*width: 75%;*/
-                min-width: 250px;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 5px;
             }
 
             .column form input[type='submit'],
@@ -165,6 +173,20 @@ body {
             .column form input[type='reset']:hover,
             .column form button:hover {
                 background: rgb(181, 49, 52);
+            }
+
+            .column section form .form-row {
+                overflow: hidden;
+                display: block;
+                float: none;
+                clear: both;
+                width: 100%;
+                margin: 0 0 15px 0;
+            }
+
+            .column section form .form-control {
+                display: inline;
+                width: 48%;
             }
 
 #column-1 {}
