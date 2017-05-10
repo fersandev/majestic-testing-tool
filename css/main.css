@@ -95,7 +95,51 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 100;
+    }
+
+    body h1 {
+        margin: 65px 0;
+        font-size: 2.5em;
+        font-weight: 700;
+        letter-spacing: -1px;
+        line-height: 1.1em;
+        text-align: center;
+    }
+
+.column {
+    display: inline;
+    float: left;
+    padding: 0 2%;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+    .column h2 {
+        margin: 0 0 35px 0;
+        text-align: center;
+    }
+
+            .column section form input[type='text'],
+            .column section form select {
+                display: block;
+            }
+
+            .column section form input[type='text'] {
+                /*width: 75%;*/
+                min-width: 250px;
+            }
 
 
 
