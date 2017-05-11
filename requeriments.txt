@@ -31,11 +31,11 @@ habilidad de modificar una monitor existente   (ANALIZAR SI ES FACTIBLE)
 share con firebase
 
 
-acepta tipo object
-
 crea algo en linea para detectar bugs
 
-coloca opción de resetear a rojo todos los monitores
+
+
+realiza un test completo bien exaustivo pues aun hay bugs cuando se le pasael valor al codigo de monitoreo que se imprime en monitoring code.
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------

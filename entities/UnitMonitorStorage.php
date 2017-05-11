@@ -160,5 +160,44 @@ class UnitMonitorStorage extends UnitMonitorStorageVerificator {
 				break;
 		}
 	}
+
+
+	public function resetAllUnitMonitors($unitMonitorStatus) {
+		if($this->verifyPersistenceExistence()) {
+			$str = file_get_contents($this->persistenceFileName);
+			if(empty($str)) {
+				return false;
+			}else {
+				$jsonList = json_decode($str, true);
+				foreach ($jsonList as $key => $value) {
+						$valueToUpdate = array(
+							'_id'=>$value['_id'],
+							'keyword'=>$value['keyword'],
+							'assertType'=>$value['assertType'],
+							'expectValue'=>$value['expectValue'],
+							'description'=>$value['description'],
+							'status'=>$unitMonitorStatus,
+							'domainProject'=>$value['domainProject'],
+							'isShared'=>$value['isShared'],
+							'createAt'=>$value['createAt'],
+							'pathFile'=>$value['pathFile'],
+							'implementingType'=>$value['implementingType'], 
+							'typeValueExpected'=>$value['typeValueExpected']
+							);
+						$jsonUpdate[] = $valueToUpdate;
+				}
+
+				$updatedJsonList = json_encode($jsonUpdate);
+				$existingFile = @fopen($this->persistenceFileName, "w");
+				if($existingFile) {
+					fwrite($existingFile, $updatedJsonList);
+					fclose($existingFile);
+				}
+				return true;
+			}
+		}else {
+			return false;
+		}
+	}
 }
 ?>

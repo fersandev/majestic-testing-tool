@@ -26,17 +26,22 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 	}
 
 	private function isValidAccordingItSpecification() {
+
 		switch ($this->mUnitMonitor->assertType) {
 			case 'notNull':
-					if(!is_null($this->mResultToTest)) {
-						return true;
-					}else {
+					if($this->mResultToTest === null) {
 						return false;
+					}else {
+						if($this->mResultToTest === 'undefined') {
+							return false;
+						}else {
+							return true;
+						}
 					}
 				break;
 
 			case 'notUndefined':
-					if($this->mResultToTest != 'undefined') {
+					if($this->mResultToTest !== 'undefined') {
 						return true;
 					}else {
 						return false;
@@ -52,16 +57,24 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 				break;
 
 			case 'greaterThan':
-					if($this->mResultToTest > $this->mUnitMonitor->expectValue) {
-						return true;
+					if(is_numeric($this->mResultToTest)) {
+						if($this->mResultToTest > $this->mUnitMonitor->expectValue) {
+							return true;
+						}else {
+							return false;
+						}
 					}else {
 						return false;
 					}
 				break;
 
 			case 'lessThan':
-					if($this->mResultToTest < $this->mUnitMonitor->expectValue) {
-						return true;
+					if(is_numeric($this->mResultToTest)) {
+						if($this->mResultToTest < $this->mUnitMonitor->expectValue) {
+							return true;
+						}else {
+							return false;
+						}
 					}else {
 						return false;
 					}
@@ -85,6 +98,7 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 				break;
 
 			case 'variableType':
+
 					switch ($this->mUnitMonitor->typeValueExpected) {
 						case 'boolean':
 								if(is_bool($this->mResultToTest)) {
@@ -103,7 +117,7 @@ class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
 							break;
 
 						case 'string':
-								if(is_string($this->mResultToTest)) {
+								if(is_string($this->mResultToTest) and ($this->mResultToTest != 'undefined')) {
 									return true;
 								}else {
 									return false;

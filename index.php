@@ -8,6 +8,7 @@
 require_once('/usecases/add_new_unit_monitor.php'); 
 require_once('/usecases/delete_unit_monitor.php'); 
 require_once('/usecases/delete_all_unit_monitors.php'); 
+require_once('/usecases/reset_all_unit_monitors.php'); 
 
 $creationMonitorMessage = '';
 $deletionMonitorMessage = '';
@@ -33,6 +34,12 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 		case 'delete_all':
 				$resultDeletion = deleteAllUnitMonitors();
 				$deletionMonitorMessage = $resultDeletion['msg'];
+			break;
+
+		case 'reset_monitors':
+				$unitMonitorStatus = 'red'; // red or green
+				$resultReset = resetAllUnitMonitors($unitMonitorStatus);
+				$deletionMonitorMessage = $resultReset['msg'];
 			break;
 
 		case 'deleteUnitMonitorsSelected':
@@ -139,6 +146,8 @@ if(isset($_REQUEST['flag']) and !empty($_REQUEST['flag'])) {
 	<section>
 		<div>
 			<a href="?flag=delete_all" onClick="if(!confirm('sure?')) return false;">Delete all unit monitors</a>
+			<br><br>
+			<a href="?flag=reset_monitors" onClick="if(!confirm('sure?')) return false;">Reset all unit monitors to red</a>
 			<br>
 			<br>
 			<form action="index.php" method="post">
