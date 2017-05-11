@@ -35,6 +35,8 @@ acepta tipo object
 
 crea algo en linea para detectar bugs
 
+coloca opción de resetear a rojo todos los monitores
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 

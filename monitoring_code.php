@@ -19,9 +19,19 @@ if($unitMonitor['status'] == 'ok') {
 	$unitMonitorInfo = $unitMonitor['result'];
 
 	if($unitMonitorInfo['implementingType'] == 'php') {
-		$resultToTestCodePortion = 'urlencode($resultToTest)';
-		if(($unitMonitorInfo['typeValueExpected'] == 'boolean') or ($unitMonitorInfo['typeValueExpected'] == 'numeric')) {
-			$resultToTestCodePortion = '$resultToTest';
+
+		if(
+			($unitMonitorInfo['assertType'] == 'variableType') or 
+			($unitMonitorInfo['assertType'] == 'notNull') or 
+			($unitMonitorInfo['assertType'] == 'notUndefined')
+			) {
+			$resultToTestCodePortion = '!is_string($resultToTest) ? $resultToTest : str_replace(" ", "", $resultToTest)';
+		}else {
+			if(($unitMonitorInfo['typeValueExpected'] == 'boolean') or ($unitMonitorInfo['typeValueExpected'] == 'numeric')) {
+				$resultToTestCodePortion = '$resultToTest';
+			}else {
+				$resultToTestCodePortion = 'urlencode($resultToTest)';
+			}	
 		}
 
 		echo('<div><p>Monitoring PHP code to be inyected in functionality that require to be monitored</p>');
@@ -34,11 +44,22 @@ $curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => $_SERVER[\'SER
 		echo('</div>');		
 	}
 
+//----------------
 
 	if($unitMonitorInfo['implementingType'] == 'js') {
-		$resultToTestCodePortion = 'encodeURIComponent(resultToTest)';
-		if(($unitMonitorInfo['typeValueExpected'] == 'boolean') or ($unitMonitorInfo['typeValueExpected'] == 'numeric')) {
-			$resultToTestCodePortion = 'resultToTest';
+
+		if(
+			($unitMonitorInfo['assertType'] == 'variableType') or 
+			($unitMonitorInfo['assertType'] == 'notNull') or 
+			($unitMonitorInfo['assertType'] == 'notUndefined')
+			) {
+			$resultToTestCodePortion = 'typeof resultToTest != "string" ? resultToTest : resultToTest.replace(" ", "")';
+		}else {
+			if(($unitMonitorInfo['typeValueExpected'] == 'boolean') or ($unitMonitorInfo['typeValueExpected'] == 'numeric')) {
+				$resultToTestCodePortion = 'resultToTest';
+			}else {
+				$resultToTestCodePortion = 'encodeURIComponent(resultToTest)';
+			}	
 		}
 
 		echo('<div><p>Monitoring JavaScript code to be inyected in functionality that require to be monitored</p>');
