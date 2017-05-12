@@ -12,9 +12,6 @@ $curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => "http://localh
 
 
 
-
-
-
 ?>
 
 
@@ -29,11 +26,4 @@ $curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => "http://localh
 </script>
 
 
-
-<script>
-// Unit Monitor
-			var resultToTest;
-			var json = {keyword:"nnn", pathFile:"<?= $_SERVER['REQUEST_URI'] ?>", resultToTest:typeof resultToTest != "string" ? resultToTest : resultToTest.replace(" ", "")};
-		var xhttp = new XMLHttpRequest();xhttp.onreadystatechange = function() {if (this.readyState == 4 && this.status == 200) {var response = this.responseText;}};var serverName="<?= $_SERVER['SERVER_NAME'] ?>";xhttp.open("GET", "http://localhost/mtt/majestic-testing-tool/mttphp.php?flag=js&json="+JSON.stringify(json)+"");xhttp.send();
-</script>
 		

@@ -28,7 +28,7 @@ if($unitMonitor['status'] == 'ok') {
 			$resultToTestCodePortion = '!is_string($resultToTest) ? $resultToTest : str_replace(" ", "", $resultToTest)';
 		}else {
 			if(($unitMonitorInfo['typeValueExpected'] == 'boolean') or ($unitMonitorInfo['typeValueExpected'] == 'numeric')) {
-				$resultToTestCodePortion = '$resultToTest';
+				$resultToTestCodePortion = '!is_string($resultToTest) ? $resultToTest : urlencode($resultToTest)';
 			}else {
 				$resultToTestCodePortion = 'urlencode($resultToTest)';
 			}	
@@ -56,7 +56,7 @@ $curl = curl_init();curl_setopt_array($curl, array(CURLOPT_URL => $_SERVER[\'SER
 			$resultToTestCodePortion = 'typeof resultToTest != "string" ? resultToTest : resultToTest.replace(" ", "")';
 		}else {
 			if(($unitMonitorInfo['typeValueExpected'] == 'boolean') or ($unitMonitorInfo['typeValueExpected'] == 'numeric')) {
-				$resultToTestCodePortion = 'resultToTest';
+				$resultToTestCodePortion = 'typeof resultToTest != "string" ? resultToTest : encodeURIComponent(resultToTest)';
 			}else {
 				$resultToTestCodePortion = 'encodeURIComponent(resultToTest)';
 			}	
