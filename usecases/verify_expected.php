@@ -7,11 +7,14 @@ require_once('entities/UnitMonitor.php');
 require_once('entities/UnitMonitorListing.php'); 
 require_once('entities/UnitMonitorVerificator.php'); 
 require_once('entities/UnitMonitorStorage.php'); 
+require_once('entities/CrudMonitorImp.php');
 
 function verifyExpected($resultToTest, $keyword, $pathFile) {
 
-	$unitMonitorListing = new UnitMonitorListing;
+	$crudMonitorImp = new CrudMonitorImp();
+	$unitMonitorListing = new UnitMonitorListing($crudMonitorImp);
 	$unitMonitor = $unitMonitorListing->getUnitMonitorObjectByKeyword($keyword);
+
 	if($unitMonitor != null) {
 		$unitMonitor->pathFile = $pathFile;
 
@@ -24,7 +27,7 @@ function verifyExpected($resultToTest, $keyword, $pathFile) {
 			$unitMonitor->status = "red";
 		}
 
-		$unitMonitorStorage = new UnitMonitorStorage;
+		$unitMonitorStorage = new UnitMonitorStorage($crudMonitorImp);
 		$updateResult = $unitMonitorStorage->updateUnitMonitor($unitMonitor);
 	}
 }

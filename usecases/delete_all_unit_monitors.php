@@ -4,9 +4,11 @@ Delete all unit monitors from json monitors file
 */
 
 require_once('entities/UnitMonitorEraser.php'); 
+require_once('entities/CrudMonitorImp.php'); 
 
 function deleteAllUnitMonitors() {
-	$unitMonitorsEraser = new UnitMonitorEraser();
+	$crudMonitorImp = new CrudMonitorImp();
+	$unitMonitorsEraser = new UnitMonitorEraser($crudMonitorImp);
 	$resultDeletion = $unitMonitorsEraser->deleteAllUnitMonitors();
 	if($resultDeletion) {
 		return array('status'=>'ok', 'msg'=>'<p style="color:orange;">all unit monitors deleted</p>', 'result'=>'');

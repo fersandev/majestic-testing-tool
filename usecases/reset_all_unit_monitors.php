@@ -6,7 +6,8 @@ Reset all unit monitors from json monitors file
 require_once('entities/UnitMonitorStorage.php'); 
 
 function resetAllUnitMonitors($unitMonitorStatus) {
-	$unitMonitorStorage = new UnitMonitorStorage();
+	$crudMonitorImp = new crudMonitorImp();
+	$unitMonitorStorage = new UnitMonitorStorage($crudMonitorImp);
 	$resultReset = $unitMonitorStorage->resetAllUnitMonitors($unitMonitorStatus);
 	if($resultReset) {
 		return array('status'=>'ok', 'msg'=>'<p style="color:green;">all unit monitors reseted to ( '.$unitMonitorStatus.' )</p>', 'result'=>'');

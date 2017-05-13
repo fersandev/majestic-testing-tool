@@ -3,14 +3,15 @@
 Retrieve n unit monitor information regitered in json monitors file
 */
 
-require_once('entities/UnitMonitorListing.php'); 
+require_once('entities/UnitMonitorListing.php');
+require_once('entities/CrudMonitorImp.php'); 
 
 function getUnitMonitorById($_id) {
-	$unitMonitorsListing = new UnitMonitorListing();
-	$unitMonitorList = $unitMonitorsListing->getUnitMonitors();
-	$unitMonitorListSorted = $unitMonitorsListing->getUnitMonitorById($unitMonitorList, $_id);
-	if($unitMonitorListSorted != null) {
-		return array('status'=>'ok', 'msg'=>'', 'result'=>$unitMonitorListSorted);
+	$crudMonitorImp = new CrudMonitorImp();
+	$unitMonitorsListing = new UnitMonitorListing($crudMonitorImp);
+	$unitMonitor = $unitMonitorsListing->getUnitMonitorById($_id);
+	if($unitMonitor != null) {
+		return array('status'=>'ok', 'msg'=>'', 'result'=>$unitMonitor);
 	}else {
 		return array('status'=>'error', 'msg'=>'the unit monitor has returned null', 'result'=>'');
 	}

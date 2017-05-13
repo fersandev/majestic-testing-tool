@@ -30,6 +30,10 @@ habilidad de modificar una monitor existente   (ANALIZAR SI ES FACTIBLE)
 
 share con firebase
 
+que los codigos de monitoring sean compactos y simples piensa en algun fichero php exerno que se pueda incluir o en alguno rel javascript que también pueda incluirse
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 

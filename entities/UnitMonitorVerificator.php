@@ -4,9 +4,8 @@
 */
 
 require_once('UnitMonitor.php'); 
-require_once('UnitMonitorStorageVerificator.php'); 
 
-class UnitMonitorVerificator extends UnitMonitorStorageVerificator {
+class UnitMonitorVerificator {
 	private $mUnitMonitor;
 	private $mResultToTest;
 
