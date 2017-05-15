@@ -6,9 +6,6 @@ Del modulo de monitoreo:
 verifica en monitoring_code.php pues en el codigo para JS estas colocando directo http, y no se sabe si es http o https, busca la manera  (VERIFICAR LUEGO SI EL HTTP FUNCIONA EN UN CONTEXTO CON HTTPS)
 
 
-crea una clase de gestión del json, seria una interfaz de storage, y a travez de esta interfaz accedemos a las implementaciones, la primera es con json   (EN PROGRESO)
-
-
 Hacer que en laravel se cambie la ruta del vendor automaticamente:  en el service provider del paquete, colocas algo como:
 $this->publishes([__DIR__ . '/views' => resource_path('views/vendor/demo-todo')]);
 donde  [__DIR__ . '/views'  es lo que quieres copiar
@@ -31,7 +28,6 @@ habilidad de modificar una monitor existente   (ANALIZAR SI ES FACTIBLE)
 share con firebase
 
 que los codigos de monitoring sean compactos y simples piensa en algun fichero php exerno que se pueda incluir o en alguno rel javascript que también pueda incluirse
-
 
 
 
